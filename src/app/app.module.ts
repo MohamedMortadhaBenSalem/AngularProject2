@@ -7,7 +7,7 @@ import { VetementsComponent } from './vetements/vetements.component';
 import { AddVetementComponent } from './add-vetement/add-vetement.component';
 import { FormsModule } from '@angular/forms';
 import { UpdateVetementComponent } from './update-vetement/update-vetement.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RechercheParMarqueComponent } from './recherche-par-marque/recherche-par-marque.component';
 import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.component';
 import { SearchFilterPipe } from './search-filter.pipe';
@@ -16,6 +16,8 @@ import { ListeMarquesComponent } from './liste-marques/liste-marques.component';
 import { UpdateMarqueComponent } from './update-marque/update-marque.component';
 import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { TokenInterceptor } from './services/token.interceptor';
+
 
 
 @NgModule({
@@ -39,7 +41,12 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     HttpClientModule,
     Ng2SearchPipeModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

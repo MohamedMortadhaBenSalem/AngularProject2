@@ -16,14 +16,12 @@ export class RechercheParMarqueComponent implements OnInit {
   constructor(private vetementService: VetementService) { }
 
   ngOnInit(): void {
-    this.vetementService.listeMarques().
-      subscribe(mars => {
+    this.vetementService.listeMarques().subscribe(mars => {
         this.marques = mars._embedded.marques;
         console.log(mars);
       });
   }
   onChange() {
-    this.vetementService.rechercherParMarque(this.IdMarque).
-      subscribe(prods => { this.vetements = prods });
+    this.vetementService.rechercherParMarque(this.IdMarque).subscribe(prods => { this.vetements = prods });
   }
 }
