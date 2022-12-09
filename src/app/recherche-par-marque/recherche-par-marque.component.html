@@ -32,8 +32,9 @@
                         <td>{{vetement.prixVetement}}</td>
                         <td>{{vetement.dateCreation | date:'dd/MM/yyyy'}}</td>
                         <td>{{vetement.marque?.nomMar}}</td>
-                        <!--  <td><a class="btn btn-danger" (click)="supprimerVetement(vetement)">Supprimer</a></td>
-                        <td><a class="btn btn-success" [routerLink]="['/updateVetement',vetement.idVetement]">Modifier</a></td> -->
+                        <td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerVetement(vetement)">Supprimer</a></td>
+                            
+                        <td><a *ngIf="authService.isAdmin()" class="btn btn-success" [routerLink]="['/updateVetement',vetement.idVetement]">Modifier</a></td>
                     </tr>
                 </tbody>
             </table>

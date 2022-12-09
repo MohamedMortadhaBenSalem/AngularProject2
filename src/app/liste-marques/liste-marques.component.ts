@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Marque } from '../model/marque.model';
+import { AuthService } from '../services/auth.service';
 import { VetementService } from '../services/vetement.service';
 
 @Component({
@@ -9,11 +10,13 @@ import { VetementService } from '../services/vetement.service';
   ]
 })
 export class ListeMarquesComponent implements OnInit {
+
+  
   marques!: Marque[];
   ajout: boolean = true;
 
 
-  constructor(private produitService: VetementService) { }
+  constructor(private produitService: VetementService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.produitService.listeMarques().
@@ -45,4 +48,16 @@ export class ListeMarquesComponent implements OnInit {
 
 
   updatedMar: Marque = { "idMar": 0, "nomMar": "" };
+
+  supprimerMarque(mar : Marque) {
+    let conf = confirm("Etes-vous sûr ?");
+       if (conf)
+       {
+         this.produitService.supprimerMarque(mar.idMar).subscribe(() => {
+          console.log("Marque supprimée");
+          this.chargerMarques(); }  );
+       }
+  }
+
+  
 }

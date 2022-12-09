@@ -17,7 +17,9 @@
                     <tr>
                         <td>{{mar.idMar}}</td>
                         <td>{{mar.nomMar}}</td>
-                        <td><a class="btn btn-success" (click)="updateMar(mar)">Editer</a></td>
+                            
+                        <td><a *ngIf="authService.isAdmin()" class="btn btn-success" (click)="updateMar(mar)">Modifier</a></td>
+                        <td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerMarque(mar)">Supprimer</a></td>
 
                     </tr>
                 </tbody>

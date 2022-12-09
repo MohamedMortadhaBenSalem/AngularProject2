@@ -15,6 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class VetementService {
+ 
   //apiURL: string = 'http://localhost:8888/vetements/api';
   apiURLMar: string = 'http://localhost:8888/vetements/mar';
   apiURL: string = 'http://localhost:8888/vetements/api';
@@ -110,6 +111,14 @@ export class VetementService {
 
   ajouterMarque(mar: Marque): Observable<Marque> {
     return this.http.post<Marque>(this.apiURLMar, mar, httpOptions);
+  }
+
+  supprimerMarque(id: number) {
+    const url = `${this.apiURLMar}/${id}`;
+    let jwt = this.authService.getToken();
+    jwt = "Bearer " + jwt;
+    let httpHeaders = new HttpHeaders({ "Authorization": jwt })
+    return this.http.delete(url, httpOptions);
   }
 
 

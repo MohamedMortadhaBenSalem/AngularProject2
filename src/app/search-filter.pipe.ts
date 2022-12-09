@@ -1,12 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Vetement } from './model/vetement.model';
 
 @Pipe({
   name: 'searchFilter'
 })
 export class SearchFilterPipe implements PipeTransform {
 
-  transform(list: any[], filterText: string): any {
+  transform(list: Vetement[], filterText: string): any {
     return list ? list.filter(item =>
-      item.nomProduit.toLowerCase().includes(filterText)) : [];
+      item.nomVetement.toLowerCase().includes(filterText)) : [];
   }
 }

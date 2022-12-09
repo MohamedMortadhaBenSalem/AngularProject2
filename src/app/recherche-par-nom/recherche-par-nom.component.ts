@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Vetement } from '../model/vetement.model';
+import { AuthService } from '../services/auth.service';
 import { VetementService } from '../services/vetement.service';
 
 @Component({
@@ -15,15 +16,17 @@ export class RechercheParNomComponent implements OnInit {
   allVetements!: Vetement[];
   searchTerm!: string;
   
-  constructor(private vetementService : VetementService) { }
+  constructor(private vetementService : VetementService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.vetementService.listeVetement().subscribe(prods => {
       console.log(prods);
-      this.vetements = prods;
+      this.allVetements = prods;
       });
       
   }
+
+  
 
   rechercherVets(){
     this.vetementService.rechercherParNom(this.nomVetement).
@@ -37,4 +40,20 @@ export class RechercheParNomComponent implements OnInit {
     item.nomVetement.toLowerCase().includes(filterText));
     }
     
+    chargerVetements(){
+      this.vetementService.listeVetement().subscribe(prods => {
+        console.log(prods);
+        this.vetements = prods;
+        });
+    }
+  
+    supprimerVetement(prods: Vetement)
+    {
+    let conf = confirm("Etes-vous sûr ?");
+    if (conf)
+    this.vetementService.supprimerVetement(prods.idVetement).subscribe(() => {
+          console.log("Vetement supprimé");
+          this.chargerVetements();
+    });
+    } 
 }
